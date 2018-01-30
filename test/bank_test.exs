@@ -38,6 +38,11 @@ defmodule BankTest do
     end
 
     @tag :skip
+    test "we cant add funds to inexistent accounts" do
+      assert {:error, :not_found} = Bank.add_funds(UUID.uuid4, 100)
+    end
+
+    @tag :skip
     test "it increases the balance", %{id: id} do
       wait_until(fn ->
         assert {:ok, 100} = Bank.get_balance(id)
@@ -65,6 +70,11 @@ defmodule BankTest do
     end
 
     @tag :skip
+    test "we cant remove funds to inexistent accounts" do
+      assert {:error, :not_found} = Bank.remove_funds(UUID.uuid4, 100)
+    end
+
+    @tag :skip
     test "we cant remove funds without money", %{id: id} do
       resp = Bank.remove_funds(id, 10000)
       assert {:error, :insufficient_funds} = resp
@@ -86,6 +96,10 @@ defmodule BankTest do
         {:ok, account_txs} = Bank.get_statement(ctx[:account_id])
         {:ok, empty_account_txs} = Bank.get_statement(ctx[:empty_account_id])
         assert [_, _] = account_txs
+        assert [
+          %{amount: 100},
+          %{amount: -100}
+        ] = account_txs
         assert [] = empty_account_txs
       end)
     end
