@@ -70,6 +70,15 @@ defmodule BankTest do
     end
 
     @tag :skip
+    test "it decreases the balance on the write side" do
+      {:ok, account_id} = Bank.open_account()
+      :ok = Bank.add_funds(account_id, 100)
+      :ok = Bank.remove_funds(account_id, 100)
+      response = Bank.remove_funds(account_id, 100)
+      assert {:error, :insufficient_funds} = response
+    end
+
+    @tag :skip
     test "we cant remove funds to inexistent accounts" do
       assert {:error, :not_found} = Bank.remove_funds(UUID.uuid4, 100)
     end
