@@ -11,7 +11,7 @@ defmodule Bank do
     {:error, :not_implemented}
   end
 
-  def remove_funds_(account_id, _amount) do
+  def remove_funds(_account_id, _amount) do
     {:error, :not_implemented}
   end
 
