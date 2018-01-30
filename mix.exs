@@ -42,6 +42,8 @@ defmodule Bank.MixProject do
 
       drop_db: ["ecto.drop", "event_store.drop"],
       reset_db: ["drop_db", "setup_db"],
+
+      test: ["reset_db", "test --trace"],
     ]
   end
 end
