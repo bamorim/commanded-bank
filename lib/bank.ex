@@ -50,15 +50,28 @@ defmodule Bank do
   end
 
   def get_balance(account_id) do
+    with {:ok, acc} <- get_account(account_id),
+      do: {:ok, acc.balance}
+  end
+
+  def get_statement(account_id) do
+    with {:ok, acc} <- get_account(account_id),
+    do: {:ok, Repo.all(statement_query(account_id))}
+  end
+
+  defp statement_query(account_id) do
+    import Ecto.Query
+
+    from t in S.Transaction,
+      where: t.account_id == ^account_id
+  end
+
+  defp get_account(account_id) do
     case Repo.get(S.Account, account_id) do
       nil ->
         {:error, :not_found}
       acc ->
-        {:ok, acc.balance}
+        {:ok, acc}
     end
-  end
-
-  def get_statement(_account_id) do
-    {:error, :not_implemented}
   end
 end

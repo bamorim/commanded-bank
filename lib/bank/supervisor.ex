@@ -12,6 +12,7 @@ defmodule Bank.Supervisor do
       {Bank.Repo, []},
       {Bank.AccountProjector, []},
       {Bank.TransferProcess, []},
+      {Bank.TransactionProjector, []},
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
