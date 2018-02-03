@@ -14,6 +14,10 @@ defmodule BankTest do
 
   describe "basic balance" do
     @describetag :skip
+    setup do
+      [r: Bank.open_account()]
+    end
+
     test "accounts start with 0 balance", %{r: r} do
       {:ok, id} = r
       wait_until(fn ->

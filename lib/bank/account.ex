@@ -1,4 +1,5 @@
 defmodule Bank.Account do
+  alias __MODULE__
   alias Bank.Commands, as: C
   alias Bank.Events, as: E
 

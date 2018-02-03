@@ -8,6 +8,7 @@ defmodule Bank.AccountProjector do
   """
   defp increase_balance(multi, account_id, amount) do
     Ecto.Multi.insert(
+      multi,
       :increase_balance,
       %S.Account{account_id: account_id, balance: amount},
       conflict_target: :account_id,

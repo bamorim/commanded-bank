@@ -3,6 +3,7 @@ defmodule Bank.TransferProcess do
     name: "TransferProcess",
     router: Bank.Router
 
+  alias Bank.Transfer
   alias Bank.Commands, as: C
   alias Bank.Events, as: E
 

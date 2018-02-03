@@ -3,8 +3,11 @@ defmodule Bank do
   Documentation for Bank.
   """
 
+  alias Bank.Transfer
+  alias Bank.Repo
   alias Bank.Router
   alias Bank.Commands, as: C
+  alias Bank.Schemas, as: S
 
   def open_account do
     id = UUID.uuid4
