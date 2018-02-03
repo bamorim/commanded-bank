@@ -6,7 +6,9 @@ defmodule Bank.Router do
 
   dispatch(
     [
-      C.OpenAccount
+      C.OpenAccount,
+      C.AddFunds,
+      C.RemoveFunds
     ],
     to: Account,
     identity: :account_id

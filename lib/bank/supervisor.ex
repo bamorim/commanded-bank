@@ -10,6 +10,8 @@ defmodule Bank.Supervisor do
   def init(_arg) do
     children = [
       {Bank.Repo, []},
+      {Bank.AccountProjector, []},
+      {Bank.TransferProcess, []},
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

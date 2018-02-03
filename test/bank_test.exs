@@ -13,7 +13,6 @@ defmodule BankTest do
   end
 
   describe "basic balance" do
-    @describetag :skip
     setup do
       [r: Bank.open_account()]
     end
@@ -31,7 +30,6 @@ defmodule BankTest do
   end
 
   describe "adding funds" do
-    @describetag :skip
     setup do
       {:ok, account_id} = Bank.open_account()
       [id: account_id, r: Bank.add_funds(account_id, 100)]
@@ -53,7 +51,6 @@ defmodule BankTest do
   end
 
   describe "removing funds" do
-    @describetag :skip
     setup do
       {:ok, account_id} = Bank.open_account()
       :ok = Bank.add_funds(account_id, 100)
@@ -89,7 +86,6 @@ defmodule BankTest do
   end
 
   describe "transfering money" do
-    @describetag :skip
     setup do
       {:ok, source_id} = Bank.open_account()
       {:ok, target_id} = Bank.open_account()
@@ -121,7 +117,6 @@ defmodule BankTest do
   end
 
   describe "statement" do
-    @describetag :skip
     setup do
       {:ok, account_id} = Bank.open_account()
       {:ok, empty_account_id} = Bank.open_account()

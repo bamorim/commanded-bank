@@ -19,20 +19,43 @@ defmodule Bank do
        end
   end
 
-  def add_funds(_account_id, _amount) do
-    {:error, :not_implemented}
+  def add_funds(account_id, amount) do
+    %C.AddFunds{
+      account_id: account_id,
+      amount: amount
+    }
+    |> Router.dispatch
   end
 
-  def remove_funds(_account_id, _amount) do
-    {:error, :not_implemented}
+  def remove_funds(account_id, amount) do
+    %C.RemoveFunds{
+      account_id: account_id,
+      amount: amount
+    }
+    |> Router.dispatch
   end
 
-  def transfer(_source_id, _target_id, _amount) do
-    {:error, :not_implemented}
+  def transfer(source_id, target_id, amount) do
+    %C.RemoveFunds{
+      account_id: source_id,
+      amount: amount,
+      operation: %Transfer{
+        transfer_id: UUID.uuid4,
+        source_id: source_id,
+        target_id: target_id,
+        amount: amount
+      }
+    }
+    |> Router.dispatch
   end
 
-  def get_balance(_account_id) do
-    {:error, :not_implemented}
+  def get_balance(account_id) do
+    case Repo.get(S.Account, account_id) do
+      nil ->
+        {:error, :not_found}
+      acc ->
+        {:ok, acc.balance}
+    end
   end
 
   def get_statement(_account_id) do
