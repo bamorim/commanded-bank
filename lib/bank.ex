@@ -3,8 +3,17 @@ defmodule Bank do
   Documentation for Bank.
   """
 
+  alias Bank.Router
+  alias Bank.Commands, as: C
+
   def open_account do
-    {:error, :not_implemented}
+    id = UUID.uuid4
+    %C.OpenAccount{account_id: id}
+    |> Router.dispatch
+    |> case do
+         :ok -> {:ok, id}
+         err -> err
+       end
   end
 
   def add_funds(_account_id, _amount) do
